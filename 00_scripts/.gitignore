@@ -1,0 +1,5 @@
+*~
+*.txt
+*.fastq.gz
+*.gz
+*.sh
