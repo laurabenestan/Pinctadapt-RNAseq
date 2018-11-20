@@ -12,7 +12,7 @@ do
 
 base=$(basename "$file")
 
-	toEval="cat 00_scripts/03_gsnap_mapping.sh | sed 's/__BASE__/$base/g'"; eval $toEval > 00_scripts/datarmor_jobs/GSNAP_$base.sh
+	toEval="cat 00_scripts/01_diff_expression/03_gsnap_mapping_genome.sh | sed 's/__BASE__/$base/g'"; eval $toEval > 00_scripts/datarmor_jobs/GSNAP_$base.sh
 done
 
 #Submit jobs

@@ -12,20 +12,18 @@
 cd $PBS_O_WORKDIR
 
 # install htseq
-. htseq/0.6.1/env.sh
+. /appli/bioinfo/htseq/0.6.1/env.sh
 
 #Global variables
-DATAINPUT="04_mapped/transcriptome"
-DATAOUTPUT="05_count"
+DATAINPUT="/home1/scratch/jleluyer/gamma/04_mapped/genome"
+DATAOUTPUT="05_count/genome"
 DATAOUTPUT_SPLICE=""
 
-#GFF_FOLDER="00_ressources/transcriptomes/P_margaritifera"
-#GFF_FILE="Trinity.100aaorf.minexpr0.5.gff3"
-GFF_FOLDER="01_projects/transcriptome_assembly/gawn/04_annotation"
-GFF_FILE="indexed_genome.gff3"
+GFF_FOLDER="01_info_files"
+GFF_FILE="genome_Pmarg_v2.gff3"
 #launch script
 base=__BASE__
 
 # for gene expression
-htseq-count -f="bam" -s="no" -r="pos" -t="gene" -i="Name" --mode="union" "$DATAINPUT"/"$base".sorted.bam "$GFF_FOLDER"/"$GFF_FILE" >>"$DATAOUTPUT"/htseq-count_"$base".txt
+htseq-count -f="bam" -s="no" -r="pos" -t="gene" -i="ID" --mode="union" "$DATAINPUT"/"$base".sorted.bam "$GFF_FOLDER"/"$GFF_FILE" >>"$DATAOUTPUT"/htseq-count_"$base".txt
 

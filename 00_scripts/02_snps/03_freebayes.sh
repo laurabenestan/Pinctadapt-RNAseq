@@ -8,21 +8,22 @@
 cd $PBS_O_WORKDIR
 
 #Working directories, input and output files
-data=list.input.freebayes.txt
-outdir=08_snps
-ref="00_ressources/transcriptomes/P_margaritifera/Trinity.100aaorf.minexpr0.5.fa"
-tag="snp_subset_freebayes_v1"
-tmp=/home1/scratch/jleluyer
+ls -1 scracth/gamma/04_mapped/genome/gatk/*split.bam|grep -v "A9.17" >01_info_files/list.individuals.freebayes.txt
+data="01_info_files/list.individuals.freebayes.txt"
+outdir=07_snps
+ref="01_info_files/sspace.final.scaffolds.fasta"
+tag="snp_freebayes_v1"
+tmp=scracth
 
 
 #Freebayes parameters 
 nAlleles="0"
 minMapQ="30"
 minCOV=10
-Ploidy=10
+Ploidy=2
 
 
-. freebayes/latest/env.sh 
+. module/freebayes/latest/env.sh 
 
 #Calling SNP with Freebayes on trimmed bam file
 echo "Running Freebayes on ${data} samples..."
@@ -35,9 +36,6 @@ time freebayes -f $ref \
 		--min-coverage $minCOV \
                 --genotype-qualities \
                 --bam-list ${data} \
-                --vcf ${outdir}/diploid.${tag}.vcf 
+                --vcf ${outdir}/${tag}.vcf 
 echo "Running Freebayes on ${data} samples done."
-
-
-#    --pooled-discrete --ploidy $Ploidy \
 
