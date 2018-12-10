@@ -6,7 +6,7 @@
 #PBS -N make_bayescan_input
 
 WORKDIR=gamma
-INDIR=07_snps/05_bayescan
+INDIR=07_snps/04_bayescan
 RCODE=00_scripts/02_snps/make_bayescan_input.R
 
 
