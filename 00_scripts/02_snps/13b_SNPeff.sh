@@ -9,8 +9,8 @@ SNPEFF=
 DBNAME=
 
 WORKDIR=gamma
-OUTDIR=07_snps/04_SNPeff
-VCF=07_snps/02_freebayes/DP10_SNP_MAF0.1_miss0.1_GAMMA_genome_biallelic_IndFiltered_noComplex_imputed.vcf
+OUTDIR=07_snps/03_SNPeff
+VCF=07_snps/01_freebayes/DP10_SNP_MAF0.1_miss0.1_GAMMA_genome_biallelic_IndFiltered_noComplex_imputed.vcf
 mkdir -p $WORKDIR/$OUTDIR
 
 cd $WORKDIR/$OUTDIR
