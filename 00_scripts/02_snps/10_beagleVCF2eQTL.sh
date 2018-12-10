@@ -4,10 +4,10 @@
 #PBS -l mem=115g
 
 WORKDIR=gamma
-OUTDIR=07_snps/03_eQTL
-INPUT=07_snps/02_freebayes/DP10_SNP_MAF0.1_miss0.1_GAMMA_genome_biallelic_IndFiltered_noComplex_imputed.vcf
-GENO=07_snps/03_eQTL/genotype_full_samples.txt
-SNP=07_snps/03_eQTL/snplocation_full_samples.txt
+OUTDIR=07_snps/02_eQTL
+INPUT=07_snps/01_freebayes/DP10_SNP_MAF0.1_miss0.1_GAMMA_genome_biallelic_IndFiltered_noComplex_imputed.vcf
+GENO=07_snps/02_eQTL/genotype_full_samples.txt
+SNP=07_snps/02_eQTL/snplocation_full_samples.txt
 
 
 mkdir -p $WORKDIR/$OUTDIR
