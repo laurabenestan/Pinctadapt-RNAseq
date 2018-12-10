@@ -6,7 +6,7 @@
 #PBS -N vcftools_stat
 
 WORKDIR=gamma
-INDIR=07_snps/02_freebayes
+INDIR=07_snps/01_freebayes
 VCFTOOLSENV=
 VCF1=GAMMA_noComplex_Gambier.recode.vcf
 VCF2=GAMMA_noComplex_marquesas.recode.vcf
