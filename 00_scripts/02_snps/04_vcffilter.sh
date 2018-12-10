@@ -5,7 +5,7 @@
 #PBS -N vcffilter
 
 WORKDIR=gamma
-INDIR=07_snps/02_freebayes
+INDIR=07_snps/01_freebayes
 VCFLIBENV=
 
 
