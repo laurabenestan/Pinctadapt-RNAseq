@@ -5,7 +5,7 @@
 #PBS -N vcftools
 
 WORDIR=gamma
-INDIR=07_snps/02_freebayes
+INDIR=07_snps/01_freebayes
 VCFTOOLSENV=
 
 cd $WORKDIR/$INDIR
