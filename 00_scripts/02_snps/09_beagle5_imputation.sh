@@ -5,7 +5,7 @@
 #PBS -N beagle
 
 WORKDIR=gamma
-INDIR=07_snps/02_freebayes
+INDIR=07_snps/01_freebayes
 BEAGLE=
 TEMP_DIR="Path to your temporary output folder (large volume needed)"
 
