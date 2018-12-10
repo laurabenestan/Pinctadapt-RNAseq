@@ -1,6 +1,8 @@
 ###############################
 ## R code for bayescan input ##
 ###############################
+#CMO. Reisser Nov. 2018
+
 
 setwd("")
 #Get VCF into R
