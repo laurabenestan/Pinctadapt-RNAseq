@@ -8,7 +8,7 @@ OUTDIR=07_snps/03_eQTL
 INPUT=07_snps/02_freebayes/DP10_SNP_MAF0.1_miss0.1_GAMMA_genome_biallelic_IndFiltered_noComplex_imputed.vcf
 GENO=07_snps/03_eQTL/genotype_full_samples.txt
 SNP=07_snps/03_eQTL/snplocation_full_samples.txt
-META=01_info_files/sample_metadata.txt
+
 
 mkdir -p $WORKDIR/$OUTDIR
 
@@ -18,4 +18,3 @@ grep -v "##" $WORKDIR/$INPUT | awk '{$1=$1"_"$2; print $0}' OFS="\t" | sed 's/0|
 
 grep -v "##" $WORKDIR/$INPUT | awk '{print $1"_"$2"\t"$1"\t"$2}' | sed 's/#CHROM_POS/snp/g' | sed 's/#CHROM/chr/g' | sed 's/POS/pos/g' > $WORKDIR/$SNP
 
-cp $WORKDIR/$META ./
