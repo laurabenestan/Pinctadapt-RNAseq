@@ -6,7 +6,7 @@
 
 WORKDIR=gamma
 BAYESCAN=
-INDIR=07_snps/05_bayescan
+INDIR=07_snps/04_bayescan
 NCPU=56
 
 #conda create -n bayescan python=2.7 anaconda
