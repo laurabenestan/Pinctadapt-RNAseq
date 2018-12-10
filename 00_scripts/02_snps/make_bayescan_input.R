@@ -3,14 +3,14 @@
 ###############################
 #CMO. Reisser Nov. 2018
 
+dir="gamma/07_snps/"
 
-setwd("")
 #Get VCF into R
 library(vcfR)
 library(plyr)
 
 #Read VCF
-vcf<-read.vcfR("GAMMA_noComplex_Gambier.recode.vcf")
+vcf<-read.vcfR(paste(dir,"01_freebayes/GAMMA_noComplex_Gambier.recode.vcf",sep=""))
 vcf
 #get allelic frequencies
 test2<-gt.to.popsum(vcf)
@@ -43,11 +43,11 @@ test2$Allele_counts2<-sapply(test2$Allele_counts2, gsub, pattern=",", replacemen
 
 #Create object with all the data necessary
 pop1<-cbind(rownames(test2),test2$n*2,test2$nAlleles,test2$Allele_counts2)
-write.table(pop1,"Gambier_bayescan_input.txt",sep="\t",quote=F,row.names=F,col.names=F)
+write.table(pop1,paste(dir,"04_bayescan/Gambier_bayescan_input.txt",sep=""),sep="\t",quote=F,row.names=F,col.names=F)
 
 
 # Do the same for pop2:
-vcf<-read.vcfR("GAMMA_noComplex_marquesas.recode.vcf")
+vcf<-read.vcfR(paste(dir,"01_freebayes/GAMMA_noComplex_marquesas.recode.vcf",sep=""))
 vcf
 test<-gt.to.popsum(vcf)
 test
@@ -75,5 +75,5 @@ for(i in 1:length(rownames(test))){
 test$Allele_counts2<-sapply(test$Allele_counts2, gsub, pattern=",", replacement=" ")
 
 pop2<-cbind(rownames(test),test$n*2,test$nAlleles,test$Allele_counts2)
-write.table(pop2,"Marquesas_bayescan_input.txt",sep="\t",quote=F,row.names=F,col.names=F)
+write.table(pop2,paste(dir,"04_bayescan/Marquesas_bayescan_input.txt",sep=""),sep="\t",quote=F,row.names=F,col.names=F)
 
