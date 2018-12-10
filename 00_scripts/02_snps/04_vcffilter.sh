@@ -4,8 +4,8 @@
 #PBS -l mem=115g
 #PBS -N vcffilter
 
-WORKDIR=gamma/07_snps
-INDIR=02_freebayes
+WORKDIR=gamma
+INDIR=07_snps/02_freebayes
 VCFLIBENV=
 
 
