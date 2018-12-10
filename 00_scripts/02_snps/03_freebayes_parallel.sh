@@ -5,26 +5,25 @@
 #PBS -lmem=115g
 #PBS -N freebayes_parallel
 
-WORKDIR=gamma/07_snps
-DATADIRECTORY=gamma/04_mapped
-OUTDIR=02_freebayes
-HEADER=00_scripts/header-big-mem.txt
+WORKDIR=gamma
+DATADIRECTORY=04_mapped
+OUTDIR=07_snps/02_freebayes
 
 FREEBAYESENV=
-REF=01_info_files/***.fasta
-INDEX=01_info_files/***.fasta.fai
+REF=$WORKDIR/01_info_files/***.fasta
+INDEX=$WORKDIR/01_info_files/***.fasta.fai
 
 #$FREEBAYESENV
 
 mkdir -p $WORKDIR/$OUTDIR
 
 #List all the BAM files contained in data folder
-LS="ls $DATADIRECTORY/*split.bam"
-$LS > $WORKDIR/00_scripts/bam_list_freebayes.txt
+LS="ls $WORKDIR/$DATADIRECTORY/*split.bam"
+$LS > $WORKDIR/00_scripts/02_snps/bam_list_freebayes.txt
 
 #One individual with very little amount of reads mapped, need to be removed:
-grep -v "A9.17" $WORKDIR/00_scripts/bam_list_freebayes.txt > $WORKDIR/00_scripts/bam_list_final_freebayes.txt
-BAM=$WORKDIR/00_scripts/bam_list_final_freebayes.txt
+grep -v "A9.17" $WORKDIR/00_scripts/02_snps/bam_list_freebayes.txt > $WORKDIR/00_scripts/02_snps/bam_list_final_freebayes.txt
+BAM=$WORKDIR/00_scripts/02_snps/bam_list_final_freebayes.txt
 
 NCPU=50
 nAlleles=4
