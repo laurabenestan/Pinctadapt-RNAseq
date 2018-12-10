@@ -7,7 +7,7 @@
 
 WORKDIR=gamma
 DATADIRECTORY=04_mapped
-OUTDIR=07_snps/02_freebayes
+OUTDIR=07_snps/01_freebayes
 
 FREEBAYESENV=
 REF=$WORKDIR/01_info_files/***.fasta
