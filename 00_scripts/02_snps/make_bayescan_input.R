@@ -16,7 +16,7 @@ vcf
 test2<-gt.to.popsum(vcf)
 
 #Create a new variable to store number of alleles at each site for the population
-test2$nAlleles<-rep("NA",length(rownames(test2)))
+test2$nAlleles<-rep("2",length(rownames(test2)))
 test2
 
 #Create a new variable to transform the counts of the homozygous loci for reference allele
@@ -43,7 +43,7 @@ vcf
 test<-gt.to.popsum(vcf)
 test
 nn<-test$n[1]*2
-test$nAlleles<-rep("NA",length(rownames(test)))
+test$nAlleles<-rep("2",length(rownames(test)))
 
 i<-0
 test$Alleles_counts2<-rep("NA",length(rownames(test)))
