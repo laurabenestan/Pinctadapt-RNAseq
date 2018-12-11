@@ -129,15 +129,15 @@ For this, modify the following file according to your populations, and run:
 
  
 ```shell
-11_singlePOP_VCF.sh
+qsub 11_singlePOP_VCF.sh
 ```
 
 Then, run one after the other:
 
  
 ```shell
-14_make_bayescan_input.sh
-15_bayescan.sh
+qsub 14_make_bayescan_input.sh
+qsub 15_bayescan.sh
 ```
 
 The script `14_make_bayescan_input.sh`will call the `make_bayescan_input.R`R code. This rscript requires two packages to be installed: *vcfR* and *plyr*.
