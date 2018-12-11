@@ -36,9 +36,7 @@ For this, run:
 ```
 
 
- 
-
-#### 2. Filtering the VCF:
+#### 4. Filtering the VCF:
 
 We used VCFlib, VCFtools and BCFtools to filter the VCf output of freebayes as follow:
 * Keep only SNPs pattern (without complex events)
@@ -47,10 +45,10 @@ We used VCFlib, VCFtools and BCFtools to filter the VCf output of freebayes as f
 * Less than 15% missing data per individual (over that, the individual is removed)
 * Less than 10% missing data (miss) at a locus (over that, the locus is removed)
 * Only loci that are biallelic
-
  
 
 To filter the output (DP,MAF,miss), run one by one (waiting for the previous to be finished):
+
 ```shell
 qsub 04_vcffilter.sh
 qsub 05_vcftools.sh
@@ -60,22 +58,17 @@ qsub 06_BCFtools.sh
 To remove individuals with too much missing data, we need to get the statistics from each individual.
 For this run:
 
- 
-
 ```shell
 qsub 07a_vcftools_missing_Ind.sh
 ```
  
-
 Then look at the output and list the individuals with more than 15% missing genotypes:
 Modify the `07b_vcftools_missing_Ind.sh` file accordingly (list individuals to be removed), then run:
- 
 
 ```shell
 qsub 07b_vcftools_missing_Ind.sh
 ```
  
-
 To remove complex SNPs (haplotype like genorype calling from Freebayes), run:
 
  
@@ -84,23 +77,21 @@ To remove complex SNPs (haplotype like genorype calling from Freebayes), run:
 ```
 
 
-#### 3. Impute missing genotypes:
+#### 5. Impute missing genotypes:
 
 Now that the VCF is filtered, we have individuals with less than 15% missing data, and loci with less than 10% missing data.
 We will use beagle5 to perform genotype imputation for the dataset.
 For this, run:
 
- 
 ```shell
 qsub 09_beagle5_imputation.sh
 ```
 
  
-#### 4. Perform eQTL analysis:
+#### 6. Perform eQTL analysis:
 
 We will use XXXXXXX package to perform eQTL analysis.
 To obtain the genotype table and the SNPlocation file necessary to run the analysis, we will use the VCF file produced by Beagle5. Run the script:
- 
  
 ```shell
 qsub 10_beagleVCF2eQTL.sh
@@ -110,7 +101,7 @@ Analysis under contruction........
 
  
  
-#### 5. Perform outlier analysis:
+#### 7. Perform outlier analysis:
 
 To obtain candidate SNPs that differentiate the two populations, we used Bayescan to screen the loci.
 We used default parameters with the exception of the prior odds (PO) of the neutral model, that we set to 500 (10 default). 
@@ -127,13 +118,11 @@ Bayescan requires its own input format. To build the correct input file, we need
 First, we will split the beagle5 imputed VCF file into two VCF files, one for each population:
 For this, modify the following file according to your populations, and run:
 
- 
 ```shell
 qsub 11_singlePOP_VCF.sh
 ```
 
 Then, run one after the other:
-
  
 ```shell
 qsub 14_make_bayescan_input.sh
@@ -143,18 +132,18 @@ qsub 15_bayescan.sh
 The script `14_make_bayescan_input.sh`will call the `make_bayescan_input.R`R code. This rscript requires two packages to be installed: *vcfR* and *plyr*.
 
 
-#### 6. Get statistics on the populations (heterozygosity and nucleotide diversity):
+
+#### 8. Get statistics on the populations (heterozygosity and nucleotide diversity):
 
 For this, we use VCFtools and the two populations specific VCF files we created above.
 Run:
-
  
 ```shell
 qsub 12_VCFtools_stats_popVCF.sh
 ```
 
 
-#### 7. Analysis in R (Fst, diversity, multivariate)
+#### 9. Analysis in R (Fst, diversity, multivariate)
 
 Under construction
 
