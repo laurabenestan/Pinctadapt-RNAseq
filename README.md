@@ -173,10 +173,3 @@ This produces pi diversity and heterozygosity files for each populations.
 
 
 
-#### EXTRA: Analysis in R (Fst, diversity, multivariate)
-
-Under construction
-
-
-
-
