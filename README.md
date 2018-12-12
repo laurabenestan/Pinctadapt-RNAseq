@@ -111,7 +111,7 @@ For example, a PO = 10 indicates that we think the neutral model is 10 times mor
 
 The PO value that should be used depends on how many loci are included in the data set. If there are less than 1000 loci, then PO = 10 is reasonable, but with more loci (say between 1000 and 10000) PO = 100 or larger is a better choice. With millions of markers, as is the case in GWAS, values as large as 10000 may be necessary.
 
-Here we have a bit more than 27000 loci, so we fixed PO at 500.
+Here we have a bit more than 27000 loci, so we fixed PO at 300.
 
 Bayescan requires its own input format. To build the correct input file, we need allelic frequencies within each population, the ploidy, and the number of alleles.
 
@@ -133,7 +133,35 @@ The script `14_make_bayescan_input.sh`will call the `make_bayescan_input.R`R cod
 
 
 
-#### 8. Get statistics on the populations (heterozygosity and nucleotide diversity):
+#### 8. Visualize results of outlier analysis:
+
+The R script `Bayescan_results_analysis.R`will use the ".sel" and "Fst" outputs from freebayes to visualize the significant outliers detected by bayescan. For this, we need the "coda" package to be installed.
+
+```shell
+qsub 16_get_bayescan_results.sh
+```
+
+This script will generate two plots for outlier visualisation, make a list of bayescan locus names with corresponding VCF locus names, and a table listing the significant outlier SNPs with their statistics.
+
+
+
+#### 9. Prepare files for SNPeff analysis on the significant SNPs
+
+For this step, we need to create a new VCf file that contains only the significant SNPs.
+
+```shell
+qsub 17_Filter_main_VCF_on_singificant_SNPs.sh
+```
+
+Now that we have the new VCF,we can run SNPeff on it:
+
+```shell
+18_SNPeff_on_significant.sh
+```
+
+
+
+#### EXTRA: Get statistics on the populations (heterozygosity and nucleotide diversity):
 
 For this, we use VCFtools and the two populations specific VCF files we created above.
 Run:
@@ -141,9 +169,11 @@ Run:
 ```shell
 qsub 12_VCFtools_stats_popVCF.sh
 ```
+This produces pi diversity and heterozygosity files for each populations.
 
 
-#### 9. Analysis in R (Fst, diversity, multivariate)
+
+#### EXTRA: Analysis in R (Fst, diversity, multivariate)
 
 Under construction
 
