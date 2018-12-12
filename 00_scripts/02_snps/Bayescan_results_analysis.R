@@ -109,7 +109,7 @@ dim(vcf)
 
 names<-cbind(c(1:nrow(vcf@fix)),vcf@fix[,1],vcf@fix[,2])
 
-write.table(names,paste(outdir,"locus_id.txt",sep=""),row.names=T,col.names=T,quote=F,sep="\t")
+write.table(names,paste(outdir,"locus_id.txt",sep=""),row.names=F,col.names=F,quote=F,sep="\t")
 write.table(sig,paste(outdir,"GAMMA_bayescan_significant.txt",sep=""),row.names=T,col.names=T,quote=F,sep="\t")
                
 #Make a manhattan like plot:
