@@ -1,9 +1,8 @@
 #!/bin/bash
-#PBS -q omp
+#PBS -q 
 #PBS -l walltime=20:00:00
 #PBS -l mem=60g
 #PBS -l ncpus=12
-#PBS -o /home1/datawork/creisser/GAMMA/genome_based/98_files/18_significant_filtering.txt
 #PBS -N Sig_filtering_VCF
 
 WORKDIR="gamma"
