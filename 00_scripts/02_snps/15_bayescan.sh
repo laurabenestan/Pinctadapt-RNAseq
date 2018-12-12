@@ -18,5 +18,5 @@ mkdir -p $WORKDIR/$INDIR
 cd $WORKDIR/$INDIR
 source activate bayescan
 
-bayescan2 Bayescan_input.txt -snp -threads $NCPU -out_freq -pr_odds 500 -od ./ -o GAMMA_bayescan_out
+bayescan2 Bayescan_input.txt -snp -threads $NCPU -out_freq -pr_odds 300 -od ./ -o GAMMA_bayescan_out
 
