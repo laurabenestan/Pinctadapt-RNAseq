@@ -7,8 +7,8 @@
 #PBS -l mem=30g
 #PBS -r n
 
-GENOMEFOLDER="01_projects/gamma/01_info_files"
-FASTA="01_projects/gamma/01_info_files/sspace.final.scaffolds.fasta"
-GENOME="gmap_genome"
+GENOMEFOLDER="path_to_genome_folder"
+FASTA="path_to_genome_folder/genome.masked.fa"
+GENOME="gmap_genome_index"
 
 gmap_build --dir="$GENOMEFOLDER" "$FASTA" -d "$GENOME"

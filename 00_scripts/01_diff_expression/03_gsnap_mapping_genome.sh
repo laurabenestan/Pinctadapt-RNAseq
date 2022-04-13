@@ -2,22 +2,22 @@
 #PBS -N gsnap.__BASE__
 #PBS -o gsnap.__BASE__.err
 #PBS -l walltime=23:00:00
-#PBS -l mem=30g
+#PBS -l mem=15g
 #####PBS -m ea
 #PBS -l ncpus=12
 #PBS -q omp
 #PBS -r n
 
-
-. /appli/bioinfo/samtools/1.4.1/env.sh
+#Module load
+#Samtools1.4.1
 
 # Global variables
-DATAOUTPUT="/home1/scratch/jleluyer/gamma/04_mapped/genome"
-DATAINPUT="/home1/scratch/jleluyer/gamma/03_trimmed"
+DATAOUTPUT="04_mapped"
+DATAINPUT="03_trimmed"
 
 # For genome
-GENOMEFOLDER="/home1/datawork/jleluyer/01_projects/gamma/01_info_files/"
-GENOME="gmap_genome"
+GENOMEFOLDER="path_to_genome_folder"
+GENOME="gmap_genome_index"
 platform="Illumina"
 
 #move to present working dir
@@ -39,7 +39,7 @@ base=__BASE__
 	samtools view -b "$DATAOUTPUT"/"$base".concordant_uniq >"$DATAOUTPUT"/"$base".concordant_uniq.bam
 # name sorting bam
 	echo "Creating sorted bam for $base"
-	samtools sort -n "$DATAOUTPUT"/"$base".concordant_uniq.bam -o "$DATAOUTPUT"/"$base".sorted.bam
+	samtools sort "$DATAOUTPUT"/"$base".concordant_uniq.bam -o "$DATAOUTPUT"/"$base".sorted.bam
  	samtools index "$DATAOUTPUT"/"$base".sorted.bam  
 # Clean up
     echo "Removing "$TMP"/"$base".sam"
