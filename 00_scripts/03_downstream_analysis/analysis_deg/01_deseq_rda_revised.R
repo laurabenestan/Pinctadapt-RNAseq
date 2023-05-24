@@ -66,7 +66,7 @@ coldata$Time<-as.factor(coldata$Time)
 
 
 
-# buolt objects
+# built objects
 dds <- DESeqDataSetFromMatrix(countData = cts,
                               colData = coldata,
                               design = ~ Temperature + Time + Genotype)
@@ -121,7 +121,7 @@ majSequences(counts(dds), group=as.factor(coldata$Genotype))
 vsd.fast <- vst(dds, fitType='local',blind=FALSE)
 write.table(assay(vsd.fast),file="../analysis_wgcna/vst_matrix_genome_110621.txt", quote=F)
 
-## Correlation matrix individuals
+### Correlation matrix individuals
 sampleDists <- dist(t(assay(vsd.fast)))
 library("RColorBrewer")
 sampleDistMatrix <- as.matrix(sampleDists)
@@ -134,8 +134,8 @@ pheatmap(sampleDistMatrix,
          clustering_distance_cols=sampleDists,
          col=colors)
 dev.off()
-### plot PCA
 
+### Plot PCA
 plotData<-plotPCA(vsd.fast,intgroup=c("Temperature","Time","Genotype"), returnData=TRUE)
 percentVar <- round(100 * attr(plotData, "percentVar"))
 PCA<-ggplot(plotData, aes(PC1, PC2,color=Temperature,shape=Genotype)) + geom_point(aes(size=Time),alpha=0.8,stroke=1)+
@@ -171,7 +171,7 @@ graph.pca
 #dev.off()
 
 
-## extract loadings
+### Extract loadings : genes involved in the differentiation observed
 data<-assay(vsd.fast)
 head(data)
 pca <- prcomp(t(data),center=T,scale=T)
@@ -207,9 +207,7 @@ theme1<-theme(panel.background = element_blank(),
               legend.text=element_text(size=18,face="bold"),
               legend.key = element_rect(fill=NA))
 
-### RDA
 ##################################### RDA ###########################################
-
 
 genet=assay(vsd.fast)
 
@@ -253,19 +251,32 @@ library(ape)
 library(vegan)
 library(cluster)
 library(dplyr)
-
+library(PCPS)
 str(df)
 
 genet.pcoa=pcoa(daisy(df[,4:ncol(df)], metric="euclidean"))
 genet.pcoa$values
 
-#Produire s??lection de variable de la db-RDA (var2 = sex, var3 = river, var4 = treatment)
+### Check the number of axes to keep 
+res <- pcoa.sig(genet.pcoa)
+summary(res)$scores
+
+### Check the percent of variation explained by each PCoa axis
+res$Cumul_eig
+
+### Keep only significant Pcoa principal components, which will be the response variable in the db-RDA
+X=as.data.frame(genet.pcoa$vectors)
+
+#Look at genotypes distribution in relation to the first 2 Pcoa axes
+plot(X[,1], X[,2])
+
+### Selection des variables significatives de la db-RDA (var2 = sex, var3 = river, var4 = treatment)
 ordistep(rda(genet.pcoa$vectors[,1:17]~df$Time+df$Temperature+df$Genotype, scale=F))
 
-#Produire db-RDA avec mod??le s??lectionn?? par ordistep, soit sex + river
+### Produire db-RDA avec mod??le s??lectionn?? par ordistep, soit sex + river
 rda_genet=rda(formula = genet.pcoa$vectors[, 1:17] ~ as.numeric(df$Time)+ as.numeric(df$Temperature)+ as.numeric(df$Genotype), scale = F)
 
-#test significance of global model
+### Test significance of global model
 anova(rda_genet, step=1000)
 
 #Test significance for each variable
