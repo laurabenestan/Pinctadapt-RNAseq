@@ -6,29 +6,13 @@ ls()
 rm(list=ls())
 ls()
 
-# Installing packages
-#source('http://bioconductor.org/biocLite.R')
-#biocLite('DESeq2')
-
-
-# Loading packages
+### Installing packages
 library('DESeq2')
 library("ggplot2")
-#install.packages("pheatmap")
 library("pheatmap")
-#install.packages("RColorBrewer")
 library("RColorBrewer")
-#install.packages("vsn") #not available
-#library("vsn")
-#source("https://bioconductor.org/biocLite.R")
-#biocLite("IHW")
 
-
-#Global variables
-setwd("analysis_deg/")
-
-
-# Loading data
+### Loading data
 coldata<-read.table("../../01_info_files/design.txt", header=T,check.names=F)
 coldata$Temperature_Time<-NULL
 coldata<-coldata[coldata$Time != 0,]
@@ -38,7 +22,7 @@ coldata$Ind<-NULL
 coldata <- coldata[order(rownames(coldata)),] 
 coldata <- coldata[(rownames(coldata)) != 16,] 
 
-#counts
+### Download counts
 cts<-read.table("join_global_genome_110621.txt", header=T,check.names=F) 
 rownames(cts)<-cts$genes
 cts$genes<-NULL
@@ -47,7 +31,7 @@ cts<-cts[,colnames(cts) %in% rownames(coldata) ]
 cts <- cts[,order(colnames(cts))] 
 
 
-# Sequences major proportion
+### Sequences major proportion
 summary(colSums(cts, na.rm = FALSE, dims = 1))
 colSums(cts, na.rm = FALSE, dims = 1)
 mean(colSums(cts, na.rm = FALSE, dims = 1))
@@ -58,7 +42,7 @@ colnames(cts)
 all(rownames(coldata) %in% colnames(cts))
 all(rownames(coldata) == colnames(cts))
 
-#Create dds
+### Create dds
 coldata$Temperature<-as.factor(coldata$Temperature)
 
 coldata$Genotype<-as.factor(coldata$Genotype)
@@ -66,7 +50,7 @@ coldata$Time<-as.factor(coldata$Time)
 
 
 
-# built objects
+### built objects
 dds <- DESeqDataSetFromMatrix(countData = cts,
                               colData = coldata,
                               design = ~ Temperature + Time + Genotype)
@@ -74,7 +58,7 @@ dds <- DESeqDataSetFromMatrix(countData = cts,
 name_filtered <-rownames(dds)
 
 
-# filtering
+### Filtering
 dds <- estimateSizeFactors(dds)
 dds <- estimateDispersions(dds)
 
@@ -184,7 +168,6 @@ write.table(rownames(loadings.PC2),file="03_results/loadings.PC2.txt",quote=F)
 rownames(loadings.PC1)
 head(loadings.PC1)
 
-
 ####### Plot individual genes
 #Plot specific genes
 cts_t<-t(df.log.norm.counts)
@@ -246,7 +229,7 @@ df$Time<-as.factor(df$Time)
 df$Temperature_Time<-NULL
 df$Genotype<-as.factor(df$Genotype)
 
-#produire PCOA ?? partir d'une matrice euclidean
+### Download librairies
 library(ape)
 library(vegan)
 library(cluster)
@@ -254,8 +237,13 @@ library(dplyr)
 library(PCPS)
 str(df)
 
+### Perform the pcoa
 genet.pcoa=pcoa(daisy(df[,4:ncol(df)], metric="euclidean"))
 genet.pcoa$values
+
+### Calculate Euclidean distances
+distgenEUCL <- dist(df[,4:ncol(df), method = 
+                      "euclidean", diag = FALSE, upper = FALSE, p = 2)
 
 ### Check the number of axes to keep 
 res <- pcoa.sig(genet.pcoa)
